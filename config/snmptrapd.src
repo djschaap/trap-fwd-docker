@@ -1,0 +1,9 @@
+doNotLogTraps no
+disableAuthorization no
+
+authCommunity execute,log public # TRAP_COMMUNITY
+
+perl do "/config/trapfwd.pl";
+
+format1 %.4y-%.2m-%.2l %.2h:%.2j:%.2k %b:\tv1Uptime = %#T\t%N\t%W Trap (%q)\t%v\n
+format2 %.4y-%.2m-%.2l %.2h:%.2j:%.2k %b:\t%v\n
