@@ -2,7 +2,7 @@
 
 Docker image for forwarding traps from snmptrapd to rsyslog within Docker.
 
-Based on Alpine Linux.
+Based on CentOS 7.
 
 USE AT YOUR OWN RISK.
 
