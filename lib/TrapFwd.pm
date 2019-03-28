@@ -55,17 +55,20 @@ sub process_trap {
 	my $trap_source = $1 || '0.0.0.0';
 
 	my $message = { };
-	foreach my $varbind ( @$varbinds ) {
+	VARBIND: foreach my $varbind ( @$varbinds ) {
 		my $oid_str = "$varbind->[0]";
+		next VARBIND if $oid_str eq 'SNMP-COMMUNITY-MIB::snmpTrapCommunity.0'; # v1
 		my ( $t, $v ) = $varbind->[1] =~ /^(.*?):\s(.*)/;
 		$message->{$oid_str} = $v;
-		$message->{$oid_str . '_type'} = $t;
-		$message->{$oid_str . '_length'} = $varbind->[2];
+		#$message->{$oid_str . '_type'} = $t; # DEBUG
+		#$message->{$oid_str . '_length'} = $varbind->[2]; # DEBUG
 	}
 
 	# setting these AFTER varbinds to ensure they aren't overwritten
 	#$message->{snmp_community} = $trap_properties->{community} || '';
-	$message->{snmp_version} = $trap_properties->{version} || 0;
+	# 0 = version 1, 1 = version 2c
+	$message->{snmp_version} = defined $trap_properties->{version}
+		? $trap_properties->{version} + 1 : 0;
 	$message->{trap_source} = $trap_source;
 
 	my $s = Net::Syslog->new(
