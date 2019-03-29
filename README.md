@@ -8,7 +8,7 @@ USE AT YOUR OWN RISK.
 
 Project Home: https://github.com/djschaap/trap-fwd-docker
 
-Docker Hub: https://cloud.docker.com/repository/docker/djschaap/trap_fwd
+Docker Hub: https://cloud.docker.com/repository/docker/djschaap/trap-fwd-docker
 
 ## Makefile targets
 
@@ -24,6 +24,7 @@ make snapshot          build from the current (dirty) workspace and pushes the i
 make check-status      will check whether there are outstanding changes
 make check-release     will check whether the current directory matches the tagged release in git.
 make showver           will show the current release tag based on the directory content.
+make shell             build, then start container and run /bin/bash
 ```
 
 ## Test Commands
